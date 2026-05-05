@@ -1,13 +1,26 @@
 import tkinter as tk
 from tkinter import ttk
 import random
+import requests
+import threading
 
 
-# SIMPLE FAKE DATA
-every_pokemon = [
-    "Pikachu", "Charizard", "Bulbasaur", "Squirtle",
-    "Eevee", "Gengar", "Snorlax", "Mew", "Lucario"
-]
+
+BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=151"  # Gen 1 only
+
+every_pokemon = []
+
+
+def load_pokemon():
+    global every_pokemon
+
+
+    response = requests.get(BASE_URL)
+    data = response.json()
+
+    every_pokemon = [p["name"].capitalize() for p in data["results"]]
+
+    print(f"Loaded {len(every_pokemon)} Pokémon!")
 
 def generate_creature():
     return {
@@ -21,27 +34,86 @@ def generate_creature():
     }
 
 
+#gui
 
-# GUI
 class App:
     def __init__(self, root):
         self.root = root
-        self.root.title("Pokémon Parts Generator")
-        self.root.geometry("450x350")
+        self.root.title("Pokémon Generator")
+        self.root.geometry("520x450")
+        self.root.configure(bg="#1e1e2f")  # dark background
 
-        tk.Label(root, text="Pokémon Parts Generator", font=("times new roman", 14)).pack(pady=10)
+        # ---------- TITLE ----------
+        title = tk.Label(
+            root,
+            text=" Pokémon Parts Generator ",
+            font=("Segoe UI", 18, "bold"),
+            bg="#1e1e2f",
+            fg="#f5f5f5"
+        )
+        title.pack(pady=15)
 
-        self.btn = tk.Button(root, text="Generate Pokémon", command=self.show_result)
+        # ---------- CARD FRAME ----------
+        self.card = tk.Frame(root, bg="#2a2a40", bd=0)
+        self.card.pack(padx=20, pady=10, fill="both", expand=True)
+
+        # ---------- STATUS ----------
+        self.status = tk.Label(
+            self.card,
+            text="Loading Pokémon...",
+            font=("Segoe UI", 10),
+            bg="#2a2a40",
+            fg="#aaaaaa"
+        )
+        self.status.pack(pady=5)
+
+        # ---------- BUTTON ----------
+        self.btn = tk.Button(
+            self.card,
+            text="Generate Pokémon",
+            font=("Segoe UI", 11, "bold"),
+            bg="#4CAF50",
+            fg="white",
+            activebackground="#45a049",
+            padx=10,
+            pady=5,
+            command=self.show_result,
+            state="disabled",
+            relief="flat"
+        )
         self.btn.pack(pady=10)
 
-        self.output = tk.Label(root, text="", justify="left", font=("Arial", 11))
-        self.output.pack(pady=20)
+        # ---------- OUTPUT BOX ----------
+        self.output_frame = tk.Frame(self.card, bg="#1e1e2f")
+        self.output_frame.pack(padx=15, pady=10, fill="both", expand=True)
+
+        self.output = tk.Label(
+            self.output_frame,
+            text="",
+            justify="left",
+            font=("Consolas", 11),
+            bg="#1e1e2f",
+            fg="#00ffcc",
+            anchor="nw"
+        )
+        self.output.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # Load Pokémon in background
+        threading.Thread(target=self.load_data, daemon=True).start()
+
+    def load_data(self):
+        load_pokemon()
+        self.status.config(text="Ready!", fg="#66ff66")
+        self.btn.config(state="normal")
 
     def show_result(self):
+        if not every_pokemon:
+            return
+
         c = generate_creature()
 
         text = (
-            f"👾 Generated Pokémon:\n\n"
+            f" GENERATED CREATURE \n\n"
             f"Head: {c['head']}\n"
             f"Body: {c['body']}\n"
             f"Arms: {c['arms']}\n"
@@ -54,8 +126,7 @@ class App:
         self.output.config(text=text)
 
 
-
-# RUN APP
+# RUN
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
