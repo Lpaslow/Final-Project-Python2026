@@ -17,7 +17,7 @@ def generate_creature():
         "legs": random.choice(every_pokemon),
         "tail": random.choice(every_pokemon),
         "wings": random.choice(every_pokemon),
-        "eyes": random.choice(every_pokemon),
+        "eyes": random.choice(every_pokemon)
     }
 
 
