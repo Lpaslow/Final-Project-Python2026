@@ -29,7 +29,7 @@ class App:
         self.root.title("Pokémon Parts Generator")
         self.root.geometry("450x350")
 
-        tk.Label(root, text="Pokémon Parts Generator", font=("Arial", 14)).pack(pady=10)
+        tk.Label(root, text="Pokémon Parts Generator", font=("times new roman", 14)).pack(pady=10)
 
         self.btn = tk.Button(root, text="Generate Pokémon", command=self.show_result)
         self.btn.pack(pady=10)
