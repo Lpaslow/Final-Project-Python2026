@@ -35,7 +35,7 @@ def generate_creature():
 class App:
     def __init__(self, root):
         self.root = root
-        self.root.title("Paldea Pokémon Generator")
+        self.root.title("Pokémon Generator")
         self.root.geometry("520x450")
 
         # 🌄 open-world background
@@ -44,7 +44,7 @@ class App:
         # ---------- TITLE ----------
         title = tk.Label(
             root,
-            text=" Paldea Pokémon Generator ",
+            text="Pokémon Generator ",
             font=("Segoe UI", 18, "bold"),
             bg="#1a1026",
             fg="#ffffff"
@@ -115,7 +115,7 @@ class App:
 
     def load_data(self):
         load_pokemon()
-        self.status.config(text="Paldea Ready!", fg="#ff4d6d")
+        self.status.config(text="Ready!", fg="#ff4d6d")
         self.btn.config(state="normal")
 
     def show_result(self):
@@ -125,7 +125,7 @@ class App:
         c = generate_creature()
 
         text = (
-            f" PALDEA HYBRID \n\n"
+            f" GEN NINE HYBRID \n\n"
             f"Head: {c['head']}\n"
             f"Body: {c['body']}\n"
             f"Arms: {c['arms']}\n"
