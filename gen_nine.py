@@ -4,7 +4,7 @@ import requests
 import threading
 
 
-# ---------------- GEN 9 ONLY (PALDEA) ---------------- #
+
 BASE_URL = "https://pokeapi.co/api/v2/generation/9"
 
 every_pokemon = []
@@ -31,17 +31,17 @@ def generate_creature():
     }
 
 
-# ---------------- GUI ---------------- #
+#gui
 class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Pokémon Generator")
         self.root.geometry("520x450")
 
-        # 🌄 open-world background
-        self.root.configure(bg="#1a1026")  # deep violet night sky
 
-        # ---------- TITLE ----------
+        self.root.configure(bg="#1a1026")
+
+
         title = tk.Label(
             root,
             text="Pokémon Generator ",
@@ -51,32 +51,32 @@ class App:
         )
         title.pack(pady=15)
 
-        # ---------- MAIN CARD ----------
+
         self.card = tk.Frame(
             root,
-            bg="#2a1b3d",  # dark violet (Scarlet/Violet mix)
+            bg="#2a1b3d",
             bd=2,
-            highlightbackground="#ff4d6d",  # scarlet pink accent
+            highlightbackground="#ff4d6d",
             highlightthickness=2
         )
         self.card.pack(padx=20, pady=10, fill="both", expand=True)
 
-        # ---------- STATUS ----------
+
         self.status = tk.Label(
             self.card,
-            text="Loading Gen 9 Pokémon...",
+            text="Loading Pokémon...",
             font=("Segoe UI", 10),
             bg="#2a1b3d",
-            fg="#a7ffeb"  # mint/green accent (open world feel)
+            fg="#a7ffeb"
         )
         self.status.pack(pady=5)
 
-        # ---------- BUTTON ----------
+
         self.btn = tk.Button(
             self.card,
             text=" Generate Pokémon ",
             font=("Segoe UI", 11, "bold"),
-            bg="#ff4d6d",   # Scarlet accent
+            bg="#ff4d6d",
             fg="white",
             activebackground="#ff7a8f",
             activeforeground="white",
@@ -88,17 +88,17 @@ class App:
         )
         self.btn.pack(pady=10)
 
-        # ---------- OUTPUT FRAME ----------
+
         self.output_frame = tk.Frame(
             self.card,
             bg="#1a1026",
             bd=1,
-            highlightbackground="#8be9ff",  # Violet futuristic blue
+            highlightbackground="#8be9ff",
             highlightthickness=1
         )
         self.output_frame.pack(padx=15, pady=10, fill="both", expand=True)
 
-        # ---------- OUTPUT TEXT ----------
+
         self.output = tk.Label(
             self.output_frame,
             text="",
@@ -110,7 +110,7 @@ class App:
         )
         self.output.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Load Pokémon in background
+
         threading.Thread(target=self.load_data, daemon=True).start()
 
     def load_data(self):
@@ -138,7 +138,7 @@ class App:
         self.output.config(text=text)
 
 
-# ---------------- RUN ---------------- #
+#run
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)

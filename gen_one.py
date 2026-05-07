@@ -6,7 +6,7 @@ import threading
 
 
 
-BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=151"  # Gen 1 only
+BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=151"
 
 every_pokemon = []
 
@@ -41,9 +41,9 @@ class App:
         self.root = root
         self.root.title("Pokémon Generator")
         self.root.geometry("520x450")
-        self.root.configure(bg="#0f0f1a")  # dark blue-ish background
+        self.root.configure(bg="#0f0f1a")
 
-        # ---------- TITLE ----------
+
         title = tk.Label(
             root,
             text=" Pokémon Parts Generator ",
@@ -53,23 +53,23 @@ class App:
         )
         title.pack(pady=15)
 
-        # ---------- CARD FRAME ----------
+
         self.card = tk.Frame(
             root,
             bg="#1a1a2b",
             bd=2,
-            highlightbackground="#3399ff",  # blue border
+            highlightbackground="#3399ff",
             highlightthickness=1
         )
         self.card.pack(padx=20, pady=10, fill="both", expand=True)
 
-        # ---------- STATUS ----------
+
         self.status = tk.Label(
             self.card,
             text="Loading Pokémon...",
             font=("Segoe UI", 10),
             bg="#1a1a2b",
-            fg="#66ff66"  # green
+            fg="#66ff66"  
         )
         self.status.pack(pady=5)
 
