@@ -6,7 +6,7 @@ import threading
 
 
 
-BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=151"
+BASE_URL = "https://pokeapi.co/api/v2/generation/1"
 
 every_pokemon = []
 
